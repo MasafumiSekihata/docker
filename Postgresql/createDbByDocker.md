@@ -2,12 +2,16 @@
 
 ## 内容
 
-- dockerでpostgresqlのコンテナを利用してDBを作成した際の**備忘録**
-- サンプルデータベースを作成するところまで
+dockerでpostgresqlのコンテナを利用してDBを作成した際の**備忘録**
+
+### やったこと
+
+- サンプルデータベースを作成する
+- dockerイメージ作成
 
 ## 手順
 
-### 1. Postgresqlコンテナ起動
+### Postgresqlコンテナ起動
 
 - DockerHubのイメージを利用
     ```bash
@@ -18,7 +22,7 @@
     docker container ls
     ```
 
-### 2. DB作成
+### DB作成
 
 - コンテナ内に入る
     ```bash
@@ -117,4 +121,38 @@ PostgreSQLの公式チュートリアルにあるサンプルDBを利用する
      public | store                      | table    |  postgres
      public | store_store_id_seq         | sequence |  postgres
      (35 rows)
+    ```
+
+### イメージ作成
+
+- 現在のイメージ確認
+    ```bash
+    docker image ls
+    ```
+    以下が表示される
+    （ダウンロードしたイメージのみ）
+    ```bash
+    REPOSITORY          TAG                    IMAGE ID            CREATED             SIZE
+    postgres            latest                 6dc0e6af942c        a days ago          312MB
+    ```
+- 現在のコンテナ確認
+    ```bash
+    docker container ls -a
+    ```
+    以下が表示される
+    ```bash
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+    5b5a03a2e869        postgres            "docker-entrypoint.s…"   25 hours ago        Up 25 hours         0.0.0.0:5432->5432/tcp   postgres
+    ```
+- イメージ化
+    ```bash
+    docker container commit 5b5a03a2e869 postgres:dvdrental
+    ```
+    作成されたことを確認
+    ```bash
+    docker image ls
+    ```
+    ```bash
+    REPOSITORY          TAG                    IMAGE ID            CREATED             SIZE
+    postgres            dvdrental              ea1cbad79dfc        7 minutes ago       315MB
     ```
