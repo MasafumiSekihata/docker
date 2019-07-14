@@ -7,7 +7,9 @@ dockerでpostgresqlのコンテナを利用してDBを作成した際の**備忘
 ### やったこと
 
 - サンプルデータベースを作成する
-- dockerイメージ作成
+- 個人用dockerイメージ作成
+    - DockerHub からダウンロードした PostgreSQL のイメージから作成しても var/lib/postgresql/data がコピーされないらしい
+    - Dockerfile を作成してコンテナ化したものからイメージを作成する必要がある。（未実施）
 
 ## 手順
 
@@ -26,7 +28,7 @@ dockerでpostgresqlのコンテナを利用してDBを作成した際の**備忘
 
 - コンテナ内に入る
     ```bash
-    docker exec -ti postgres bash
+    docker exec -ti postgres /bin/bash
     ```
     実行後、ユーザ名が以下のように root に変わる
     ```bash
@@ -56,6 +58,7 @@ PostgreSQLの公式チュートリアルにあるサンプルDBを利用する
     exit    #rootユーザ終了
     cd [サンプルDBダウンロードディレクトリ]  #ディレクトリ移動
     docker cp dvdrental postgres:/home  #postgresコンテナの/homeディレクトリにコピー
+    # postgreユーザに読み取り権限があるフォルダにコピーするべき
     ```
 - ファイル確認
     ```bash
