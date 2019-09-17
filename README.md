@@ -13,3 +13,9 @@
 ## コンテナ離脱
 
 - ctrl+p,ctrl+q
+
+## コンテナにファイルコピー
+
+- docker cp {ORIGIN_PATH}/fileName {CONTAINER_ID}:{COPY_PATH}
+  - docker cp ./xxx.sql xxxxxxxxx:/init
+  - docker cp ./xxx/. xxxxxxxxx:/init
